@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check-out Successful</title>
+  <link rel="stylesheet" href="checkin.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <div class="success-container">
+    <h1>👋 Goodbye, <span id="employeeName">Employee</span>!</h1>
+    <p class="timestamp">You have successfully checked out at <span id="timestamp"></span> (IST)</p>
+
+    <div class="attendance-status">
+      <h2>Today's Attendance</h2>
+      <table>
+        <tr><td>Check-in:</td><td><span id="checkinTime"></span></td></tr>
+        <tr><td>Check-out:</td><td><span id="checkoutTime"></span></td></tr>
+        <tr><td>Total Time:</td><td><span id="totalTime"></span></td></tr>
+      </table>
+    </div>
+
+    <div class="weekly-summary">
+      <h2>Weekly Summary</h2>
+      <table>
+        <tr><th>Day</th><th>Total Hours</th></tr>
+        <tr><td>Monday</td><td>8h 10m</td></tr>
+        <tr><td>Tuesday</td><td>7h 45m</td></tr>
+        <tr><td>Today</td><td><span id="totalTimeSummary"></span></td></tr>
+      </table>
+    </div>
+
+    <blockquote class="quote">
+      "Well done is better than well said. See you tomorrow!"
+    </blockquote>
+
+    <div class="actions">
+      <a href="index.html" class="btn">🏠 Go to Dashboard</a>
+    </div>
+  </div>
+
+<script>
+  const name = localStorage.getItem('employee_name');
+  const checkin = localStorage.getItem('checkin_time');
+  const now = new Date();
+  const timestamp = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+  const checkoutTimeStr = now.toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+    timeZone: 'Asia/Kolkata'
+  });
+
+  function parseTime(timeStr) {
+    if (!timeStr) return null;
+    const [time, rawModifier] = timeStr.trim().split(' ');
+    const modifier = rawModifier.toUpperCase();
+    let [hours, minutes, seconds] = time.split(':');
+    hours = parseInt(hours, 10);
+    minutes = parseInt(minutes, 10);
+    seconds = parseInt(seconds || '0', 10);
+    if (modifier === 'PM' && hours < 12) hours += 12;
+    if (modifier === 'AM' && hours === 12) hours = 0;
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
+  }
+
+  function calculateDuration(checkinStr, checkoutStr) {
+    const checkinTime = parseTime(checkinStr);
+    const checkoutTime = parseTime(checkoutStr);
+    if (!checkinTime || !checkoutTime) return '--';
+    const diffMs = checkoutTime - checkinTime;
+    if (diffMs < 0) return '--';
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    return `${hours}h ${minutes}m`;
+  }
+
+  const checkinTimeStr = checkin || '--';
+  const totalDuration = checkin ? calculateDuration(checkinTimeStr, checkoutTimeStr) : '--';
+
+  document.getElementById('employeeName').textContent = name || 'Employee';
+  document.getElementById('timestamp').textContent = timestamp;
+  document.getElementById('checkinTime').textContent = checkinTimeStr;
+  document.getElementById('checkoutTime').textContent = checkoutTimeStr;
+  document.getElementById('totalTime').textContent = totalDuration;
+  document.getElementById('totalTimeSummary').textContent = totalDuration;
+
+  // Optional: clear session after use
+  localStorage.removeItem('checkin_time');
+</script>
+
+</body>
+</html>

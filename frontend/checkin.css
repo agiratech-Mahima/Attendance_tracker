@@ -1,0 +1,142 @@
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg,#22223b, #ffffff);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.success-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+   
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.timestamp {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  margin: 10px 0;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+td, th {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 0.95rem;
+  margin: 20px 0;
+  color:#191919;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 15px;
+  background: #ffffff33;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #ffffff55;
+}
+
+
+.search-box {
+  margin: 20px auto;
+  max-width: 500px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.search-box button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#searchResults {
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+
+
+.navbar {
+      background-color:#ff85a254;
+      /* background: linear-gradient(90deg, #22223b, #ffb3c1); */
+      backdrop-filter: blur(8px);
+      padding: 12px 24px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .navbar h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .navbar a:hover {
+      color: #ffd700;
+    }
+
+    /* Push content below navbar */
+    body {
+      padding-top: 30px;
+    }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check-in Successful</title>
+  <link rel="stylesheet" href="checkin.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <div class="navbar">
+    <h2>🏢 Attendance Tracker</h2>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="employee-records.html">Employee Records</a>
+    </div>
+  </div>
+
+  <div class="success-container">
+    <h1 id="greeting">Good day, <span id="employeeName">Mahima</span>!</h1>
+    <p class="timestamp">You have successfully checked in at <span id="timestamp"></span> (IST)</p>
+
+    <div class="attendance-status">
+      <h2>Today's Attendance</h2>
+      <table>
+        <tr><td>Check-in:</td><td><span id="checkinTime"></span></td></tr>
+        <tr><td>Check-out:</td><td>--</td></tr>
+        <tr><td>Total Time:</td><td>--</td></tr>
+      </table>
+    </div>
+
+    <div class="weekly-summary">
+      <h2>Weekly Check-in Summary</h2>
+      <table>
+        <tr><th>Day</th><th>Check-in</th></tr>
+        <tr><td>Monday</td><td>9:02 AM</td></tr>
+        <tr><td>Tuesday</td><td>9:01 AM</td></tr>
+        <tr><td>Today</td><td><span id="checkinTimeSummary"></span></td></tr>
+      </table>
+    </div>
+
+    <blockquote class="quote">
+      "Success is the sum of small efforts, repeated day in and day out."
+    </blockquote>
+
+    <div class="actions">
+      <a href="index.html" class="btn">🔙 Back to Home</a>
+      <a href="#" class="btn" onclick="goToCheckout()">🕘 Mark Check-out</a>
+      <a href="#" class="btn" onclick="downloadCSV()">⬇️ Download Attendance CSV</a>
+    </div>
+  </div>
+
+<script>
+  const now = new Date();
+  const timestamp = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  const checkinTime = timestamp.split(', ')[1];
+
+  let name = localStorage.getItem('employee_name');
+  if (!name) {
+    name = prompt("Enter your name:");
+    localStorage.setItem('employee_name', name);
+  }
+
+  // Save check-in time to localStorage
+  localStorage.setItem('checkin_time', checkinTime);
+
+  // Greeting logic
+  const hours = now.getHours();
+  let greeting = 'Good Morning';
+  if (hours >= 12 && hours < 17) greeting = 'Good Afternoon';
+  else if (hours >= 17) greeting = 'Good Evening';
+
+  // Populate UI
+  document.getElementById('employeeName').textContent = name;
+  document.getElementById('timestamp').textContent = timestamp;
+  document.getElementById('checkinTime').textContent = checkinTime;
+  document.getElementById('checkinTimeSummary').textContent = checkinTime;
+  document.getElementById('greeting').innerHTML = `${greeting}, <span id="employeeName">${name}</span>!`;
+
+  function goToCheckout() {
+    window.location.href = "checkout.html";
+  }
+
+  function downloadCSV() {
+    if (!name) return alert('Employee name is missing.');
+    const url = `http://localhost:3000/export-today?employee_name=${encodeURIComponent(name)}`;
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'attendance.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
+
+</body>
+</html>

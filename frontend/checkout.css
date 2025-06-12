@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #fc4a1a, #f7b733); /* Orange gradient */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.success-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#nameDisplay {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.time-info {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  text-decoration: none;
+  background-color: #ffffff33;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.back-button:hover {
+  background-color: #ffffff55;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Records</title>
+  <link rel="stylesheet" href="checkin.css" />
+  <style>
+    body {
+      padding-top: 10px;
+    }
+
+    .navbar {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 12px 24px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-sizing: border-box;
+    }
+
+    .navbar h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <h2>📁 Employee Records</h2>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="checkin.html">Check-in</a>
+    </div>
+  </div>
+
+  <!-- ✅ Search Area -->
+  <div class="success-container">
+    <h2>🔍 Search Attendance </h2>
+    <div class="search-box">
+      <input type="text" id="searchName" placeholder="Enter employee name" />
+      <button onclick="searchEmployee()">Search</button>
+    </div>
+    <div id="searchResults"></div>
+  </div>
+
+  <!-- ✅ JS Logic -->
+  <script>
+    function searchEmployee() {
+      const name = document.getElementById('searchName').value.trim();
+      if (!name) return alert('Please enter a name');
+
+      fetch(`http://localhost:3000/search?employee_name=${encodeURIComponent(name)}`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('searchResults');
+
+          if (!data || !data.length) {
+            container.innerHTML = `<p>No records found for "<strong>${name}</strong>"</p>`;
+            return;
+          }
+
+          let html = `
+            <h3>📋 Records for ${name}</h3>
+            <table border="1" style="margin: 0 auto;">
+              <tr><th>ID</th><th>Name</th><th>Action</th><th>Timestamp</th></tr>`;
+          data.forEach(row => {
+            html += `
+              <tr>
+                <td>${row.id}</td>
+                <td>${row.employee_name}</td>
+                <td>${row.action}</td>
+                <td>${new Date(row.timestamp).toLocaleString('en-IN')}</td>
+              </tr>`;
+          });
+          html += '</table>';
+          container.innerHTML = html;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('searchResults').innerHTML = "⚠️ Error fetching data.";
+        });
+    }
+  </script>
+</body>
+</html>

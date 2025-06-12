@@ -1,0 +1,38 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+    <h2>📋 Attendance Tracker</h2>
+    <div class="nav-right">
+      <input type="date" id="calendar" />
+      <span id="liveClock">--:--:--</span>
+    
+    </div>
+  </div>
+
+
+    <div class="card">
+
+<img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Employee Icon" class="floating-img" />
+
+      <p class="subtitle">Please enter your name to check-in or check-out</p>
+      <input type="text" id="employeeName" placeholder="👤 Your Name" />
+      <div class="buttons">
+        <button class="checkin" onclick="markAttendance('Check-in')">✅ Check-in</button>
+        <button class="checkout" onclick="markAttendance('Check-out')">🕘 Check-out</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
