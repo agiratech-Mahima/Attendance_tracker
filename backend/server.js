@@ -8,11 +8,11 @@ const mysql = require('mysql');
 const cors = require('cors');
 const path = require('path');
 
-// ✅ Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// ✅ MySQL Connection Setup
+
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -20,7 +20,7 @@ const db = mysql.createConnection({
   database: 'attendance_tracker' // Replace with your actual DB name
 });
 
-// ✅ Test DB Connection
+
 db.connect(err => {
   if (err) {
     console.error('❌ MySQL connection error:', err);
@@ -29,10 +29,10 @@ db.connect(err => {
   console.log('✅ Connected to MySQL database');
 });
 
-// ✅ Serve frontend files if needed
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// ✅ Search attendance records by employee name
+
 app.get('/search', (req, res) => {
   const name = req.query.employee_name;
   if (!name) return res.status(400).json({ error: 'Employee name is required' });
@@ -116,8 +116,7 @@ app.post('/mark', (req, res) => {
 
 
 
-// ✅ Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
