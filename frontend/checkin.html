@@ -62,16 +62,16 @@
     localStorage.setItem('employee_name', name);
   }
 
-  // Save check-in time to localStorage
+  
   localStorage.setItem('checkin_time', checkinTime);
 
-  // Greeting logic
+
   const hours = now.getHours();
   let greeting = 'Good Morning';
   if (hours >= 12 && hours < 17) greeting = 'Good Afternoon';
   else if (hours >= 17) greeting = 'Good Evening';
 
-  // Populate UI
+
   document.getElementById('employeeName').textContent = name;
   document.getElementById('timestamp').textContent = timestamp;
   document.getElementById('checkinTime').textContent = checkinTime;
